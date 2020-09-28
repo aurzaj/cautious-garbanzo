@@ -7,7 +7,7 @@ $url = "https://api.meteo.lt/v1/places/".$city."/forecasts/long-term";
     // create curl resource
 $ch = curl_init();
 
-curl_setopt ($ch, CURLOPT_CAINFO, "C:/MAMP/htdocs/weatherDress/cacert.pem");
+curl_setopt ($ch, CURLOPT_CAINFO, "/etc/ssl/certs");
 // set url
 curl_setopt($ch, CURLOPT_URL, $url);
 //return the transfer as a string
