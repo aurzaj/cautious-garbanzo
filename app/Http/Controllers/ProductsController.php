@@ -29,8 +29,12 @@ class ProductsController extends Controller
         //Connecting to meteo api with helper function which is written in App\Helpers\HelperFunctions.php
             $api_data = ConnectApi($city);
 
+            try {
+                $airTemperature = json_decode($api_data)->forecastTimestamps[0];
+        
         //Setting air temperature from api to a variable
-        $airTemperature = json_decode($api_data)->forecastTimestamps[0];
+
+
 
         //calling a custom helper function @whichSeason which depending on air temperature sets current clothing season to a variable
         $currentSeason = whichSeason($seasons, $airTemperature->airTemperature);
@@ -45,8 +49,12 @@ class ProductsController extends Controller
                 where('gender',$gender[$i])->where('type', $clothingCollection[$j])->inRandomOrder()->first();
             }
         }
-        //result is displayed with PHP function @dd()
+        //result is displayed in json format
         echo json_encode($finalRecommendation);
+    } catch (\Throwable $th) {
+        echo "Wrong city format!" . PHP_EOL;
+        echo "Correct format should be: /api/products/recommended/:LithuanianCity";
+    }
     }
 
     public function getAccessoriesRecomendation($city){
@@ -68,7 +76,7 @@ class ProductsController extends Controller
 
         //Connecting to meteo api with helper function which is written in App\Helpers\HelperFunctions.php
         $api_data = ConnectApi($city);
-
+        try{
         //Setting air temperature from api to a variable
         $airTemperature = json_decode($api_data)->forecastTimestamps[0];
 
@@ -84,5 +92,10 @@ class ProductsController extends Controller
             }
         }
         echo json_encode($finalRecommendation);
+
+    } catch (\Throwable $th) {
+        echo "Wrong city format!" . PHP_EOL;
+        echo "Correct format should be: /api/products/recommended/:LithuanianCity/accessories";
+    }
     }
 }
