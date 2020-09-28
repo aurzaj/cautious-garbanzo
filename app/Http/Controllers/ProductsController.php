@@ -27,7 +27,7 @@ class ProductsController extends Controller
         $gender = array('male', 'female');
 
         //Connecting to meteo api with helper function which is written in App\Helpers\HelperFunctions.php
-        $api_data = ConnectApi($city);
+            $api_data = ConnectApi($city);
 
         //Setting air temperature from api to a variable
         $airTemperature = json_decode($api_data)->forecastTimestamps[0];
