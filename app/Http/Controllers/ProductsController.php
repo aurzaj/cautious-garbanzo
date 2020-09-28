@@ -30,7 +30,7 @@ class ProductsController extends Controller
             $api_data = ConnectApi($city);
 
         //Setting air temperature from api to a variable
-        $airTemperature = json_decode($api_data, false)->forecastTimestamps[0];
+        $airTemperature = json_decode($api_data, true)->forecastTimestamps[0];
 
         //calling a custom helper function @whichSeason which depending on air temperature sets current clothing season to a variable
         $currentSeason = whichSeason($seasons, $airTemperature->airTemperature);
